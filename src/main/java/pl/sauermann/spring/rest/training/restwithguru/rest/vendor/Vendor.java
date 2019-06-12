@@ -1,4 +1,4 @@
-package pl.sauermann.spring.rest.training.restwithguru.rest.category;
+package pl.sauermann.spring.rest.training.restwithguru.rest.vendor;
 
 import lombok.Data;
 import pl.sauermann.spring.rest.training.restwithguru.rest.BaseEntity;
@@ -7,8 +7,7 @@ import javax.persistence.Entity;
 
 @Data
 @Entity
-public class Category extends BaseEntity {
+public class Vendor extends BaseEntity {
 
     private String name;
-
 }

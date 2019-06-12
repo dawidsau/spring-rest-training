@@ -1,19 +1,14 @@
 package pl.sauermann.spring.rest.training.restwithguru.rest.customer;
 
 import lombok.Data;
+import pl.sauermann.spring.rest.training.restwithguru.rest.BaseEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Data
 @Entity
-public class Customer {
+public class Customer extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
     private String firstName;
     private String lastName;
 

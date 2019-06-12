@@ -106,7 +106,7 @@ public class CustomerServiceImplTest {
 
     @Test
     public void shouldDeleteCustomer() {
-        customerRepository.deleteById(10L);
+        customerService.deleteById(10L);
 
         verify(customerRepository, times(1)).deleteById(anyLong());
     }
