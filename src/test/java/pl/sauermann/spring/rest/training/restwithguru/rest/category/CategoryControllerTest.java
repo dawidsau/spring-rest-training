@@ -68,6 +68,6 @@ public class CategoryControllerTest {
         mockMvc.perform(get("/api/categories/First")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name",equalTo(NAME)));
+                .andExpect(jsonPath("$.text",equalTo(NAME)));
     }
 }

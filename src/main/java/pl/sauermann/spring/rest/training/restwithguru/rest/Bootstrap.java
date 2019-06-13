@@ -7,6 +7,8 @@ import pl.sauermann.spring.rest.training.restwithguru.rest.category.Category;
 import pl.sauermann.spring.rest.training.restwithguru.rest.category.CategoryRepository;
 import pl.sauermann.spring.rest.training.restwithguru.rest.customer.Customer;
 import pl.sauermann.spring.rest.training.restwithguru.rest.customer.CustomerRepository;
+import pl.sauermann.spring.rest.training.restwithguru.rest.vendor.Vendor;
+import pl.sauermann.spring.rest.training.restwithguru.rest.vendor.VendorRepository;
 
 @Slf4j
 @Component
@@ -14,22 +16,34 @@ public class Bootstrap implements CommandLineRunner {
 
     private CategoryRepository categoryRepository;
     private CustomerRepository customerRepository;
+    private VendorRepository vendorRepository;
 
-    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository) {
+    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository, VendorRepository vendorRepository) {
         this.categoryRepository = categoryRepository;
         this.customerRepository = customerRepository;
+        this.vendorRepository = vendorRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
         initCategoryData();
         initCustomerData();
-
-        log.info("Customer data inserted in amount: "+ customerRepository.count());
-        log.info("Category data inserted in amount: "+ categoryRepository.count());
+        initVendorData();
     }
 
-    private void initCustomerData(){
+    private void initVendorData() {
+        Vendor vendor = new Vendor();
+        vendor.setText("First text");
+        Vendor vendor2 = new Vendor();
+        vendor2.setText("Some text");
+
+        vendorRepository.save(vendor);
+        vendorRepository.save(vendor2);
+        log.info("Vendor data inserted in amount: " + vendorRepository.count());
+
+    }
+
+    private void initCustomerData() {
         Customer customer = new Customer();
         customer.setId(1L);
         customer.setFirstName("Dawid");
@@ -54,6 +68,8 @@ public class Bootstrap implements CommandLineRunner {
         customerRepository.save(customer2);
         customerRepository.save(customer3);
         customerRepository.save(customer4);
+        log.info("Customer data inserted in amount: " + customerRepository.count());
+
     }
 
     private void initCategoryData() {
@@ -77,5 +93,7 @@ public class Bootstrap implements CommandLineRunner {
         categoryRepository.save(fresh);
         categoryRepository.save(exotic);
         categoryRepository.save(nuts);
+        log.info("Category data inserted in amount: " + categoryRepository.count());
+
     }
 }

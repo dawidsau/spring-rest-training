@@ -9,5 +9,5 @@ import javax.persistence.Entity;
 @Entity
 public class Vendor extends BaseEntity {
 
-    private String name;
+    private String text;
 }

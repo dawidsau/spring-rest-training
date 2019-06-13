@@ -34,12 +34,12 @@ public class VendorServiceImplTest {
         Long id = 1L;
         Vendor vendor = new Vendor();
         vendor.setId(1L);
-        vendor.setName("Some Vendor");
+        vendor.setText("Some Vendor");
         //when
         when(vendorRepository.findById(id)).thenReturn(java.util.Optional.of(vendor));
         VendorDTO vendorById = vendorService.getVendorById(id);
         //then
-        assertEquals("Some Vendor", vendorById.getName());
+        assertEquals("Some Vendor", vendorById.getText());
         assertEquals(VendorController.BASE_URL +"/1", vendorById.getVendorUrl());
     }
 
@@ -47,13 +47,13 @@ public class VendorServiceImplTest {
     public void shouldReturnAllVendors() {
         Vendor vendor = new Vendor();
         vendor.setId(1L);
-        vendor.setName("First");
+        vendor.setText("First");
         Vendor vendor2 = new Vendor();
         vendor.setId(1L);
-        vendor.setName("Second");
+        vendor.setText("Second");
         Vendor vendor3 = new Vendor();
         vendor.setId(1L);
-        vendor.setName("Third");
+        vendor.setText("Third");
 
         List<Vendor> vendors = Lists.newArrayList(vendor,vendor2,vendor3);
 
@@ -67,17 +67,17 @@ public class VendorServiceImplTest {
     @Test
     public void shouldInsertVendor() {
         VendorDTO vendor = new VendorDTO();
-        vendor.setName("First");
+        vendor.setText("First");
 
         Vendor vendorReturned = new Vendor();
         vendorReturned.setId(1L);
-        vendorReturned.setName("First");
+        vendorReturned.setText("First");
 
         when(vendorRepository.save(any(Vendor.class))).thenReturn(vendorReturned);
 
         VendorDTO result = vendorService.createNewVendor(vendor);
 
-        assertEquals(vendorReturned.getName(),result.getName());
+        assertEquals(vendorReturned.getText(),result.getText());
         assertEquals(vendorReturned.getId(),result.getId());
     }
 
@@ -94,35 +94,35 @@ public class VendorServiceImplTest {
     public void shouldUpdateVendorById() {
         Long id = 1L;
         VendorDTO vendorDTO = new VendorDTO();
-        vendorDTO.setName("Old text");
+        vendorDTO.setText("Old text");
         Vendor vendor = new Vendor();
-        vendor.setName("Old text");
+        vendor.setText("Old text");
         Vendor vendorReturned = new Vendor();
-        vendorReturned.setName("New Name");
+        vendorReturned.setText("New Name");
 
         when(vendorRepository.findById(anyLong())).thenReturn(java.util.Optional.of(vendor));
         when(vendorRepository.save(any(Vendor.class))).thenReturn(vendorReturned);
 
         VendorDTO result = vendorService.updateVendor(id, vendorDTO);
 
-        assertEquals(vendorReturned.getName(),result.getName());
+        assertEquals(vendorReturned.getText(),result.getText());
     }
 
     @Test
     public void shouldReplaceVendorById() {
         Long id = 1L;
         VendorDTO vendorDTO = new VendorDTO();
-        vendorDTO.setName("Old text");
+        vendorDTO.setText("Old text");
         Vendor vendor = new Vendor();
-        vendor.setName("Old text");
+        vendor.setText("Old text");
         Vendor vendorReturned = new Vendor();
-        vendorReturned.setName("New Name");
+        vendorReturned.setText("New Name");
 
         when(vendorRepository.findById(anyLong())).thenReturn(java.util.Optional.of(vendor));
         when(vendorRepository.save(any(Vendor.class))).thenReturn(vendorReturned);
 
         VendorDTO result = vendorService.replaceVendor(id, vendorDTO);
 
-        assertEquals(vendorReturned.getName(),result.getName());
+        assertEquals(vendorReturned.getText(),result.getText());
     }
 }

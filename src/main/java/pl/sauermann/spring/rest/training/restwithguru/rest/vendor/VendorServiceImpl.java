@@ -66,7 +66,7 @@ public class VendorServiceImpl implements VendorService {
 
     private VendorDTO getVendorDTO(Long id, VendorDTO vendorDTO) {
         Vendor vendor = vendorRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
-        vendor.setName(vendorDTO.getName());
+        vendor.setText(vendorDTO.getText());
         Vendor savedVendor = vendorRepository.save(vendor);
         VendorDTO result = vendorMapper.vendorToVendorDTO(savedVendor);
         result.setVendorUrl(VendorController.BASE_URL + "/" + result.getId());

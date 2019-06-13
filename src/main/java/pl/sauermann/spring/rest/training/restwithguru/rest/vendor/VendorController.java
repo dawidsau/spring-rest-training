@@ -34,20 +34,20 @@ public class VendorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public VendorDTO createNewVendor(VendorDTO vendorDTO){
+    public VendorDTO createNewVendor(@RequestBody VendorDTO vendorDTO){
         return vendorService.createNewVendor(vendorDTO);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public VendorDTO replaceVendorById(@PathVariable String id, VendorDTO vendorDTO){
+    public VendorDTO replaceVendorById(@PathVariable String id,@RequestBody VendorDTO vendorDTO){
         return vendorService.replaceVendor(new Long(id), vendorDTO);
     }
 
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public VendorDTO updateVendorById(@PathVariable String id, VendorDTO vendorDTO){
+    public VendorDTO updateVendorById(@PathVariable String id,@RequestBody VendorDTO vendorDTO){
         return vendorService.updateVendor(new Long(id), vendorDTO);
     }
 

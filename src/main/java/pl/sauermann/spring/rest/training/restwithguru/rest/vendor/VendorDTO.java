@@ -6,6 +6,6 @@ import lombok.Data;
 public class VendorDTO {
 
     private Long id;
-    private String name;
+    private String text;
     private String vendorUrl;
 }

@@ -13,8 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static pl.sauermann.spring.rest.training.restwithguru.rest.vendor.VendorController.BASE_URL;
@@ -44,7 +43,7 @@ public class VendorControllerTest {
     public void shouldReturnVendorById() throws Exception {
         VendorDTO vendorDTO = new VendorDTO();
         vendorDTO.setId(1L);
-        vendorDTO.setName("Some name");
+        vendorDTO.setText("Some text");
         vendorDTO.setVendorUrl(BASE_URL + "/1");
 
         when(vendorService.getVendorById(1L)).thenReturn(vendorDTO);
@@ -52,7 +51,7 @@ public class VendorControllerTest {
         mockMvc.perform(get(BASE_URL + "/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", equalTo("Some name")));
+                .andExpect(jsonPath("$.text", equalTo("Some text")));
 
     }
 
@@ -66,12 +65,19 @@ public class VendorControllerTest {
     }
 
     @Test
-    public void shouldInsertVendor() {
+    public void shouldInsertVendor() throws Exception {
         VendorDTO vendorDTO = new VendorDTO();
         vendorDTO.setId(1L);
-        vendorDTO.setName("Some name");
+        vendorDTO.setText("Some text");
         vendorDTO.setVendorUrl(BASE_URL + "/1");
-        throw new RuntimeException("Not implemented yet");
+
+        when(vendorService.createNewVendor(any(VendorDTO.class))).thenReturn(vendorDTO);
+
+        mockMvc.perform(post(BASE_URL)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.vendorUrl",equalTo(BASE_URL + "/1")));
+
 
     }
 
@@ -79,11 +85,11 @@ public class VendorControllerTest {
     public void shouldReturnAllVendors() throws Exception {
         VendorDTO vendorDTO = new VendorDTO();
         vendorDTO.setId(1L);
-        vendorDTO.setName("Some name");
+        vendorDTO.setText("Some text");
         vendorDTO.setVendorUrl(BASE_URL + "/1");
         VendorDTO vendorDTO2 = new VendorDTO();
         vendorDTO.setId(2L);
-        vendorDTO.setName("Some name");
+        vendorDTO.setText("Some text");
         vendorDTO.setVendorUrl(BASE_URL + "/2");
 
         when(vendorService.getAllVendors()).thenReturn(Lists.newArrayList(vendorDTO, vendorDTO2));
@@ -96,21 +102,34 @@ public class VendorControllerTest {
     }
 
     @Test
-    public void shouldReplaceVendorById() {
+    public void shouldReplaceVendorById() throws Exception {
         VendorDTO vendorDTO = new VendorDTO();
         vendorDTO.setId(1L);
-        vendorDTO.setName("Some name");
+        vendorDTO.setText("Some text");
         vendorDTO.setVendorUrl(BASE_URL + "/1");
-        throw new RuntimeException("Not implemented yet");
+
+        when(vendorService.replaceVendor(anyLong(),any(VendorDTO.class))).thenReturn(vendorDTO);
+
+        mockMvc.perform(put(BASE_URL+"/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.vendorUrl",equalTo(BASE_URL + "/1")));
 
     }
 
     @Test
-    public void shouldUpdateVendorById() {
+    public void shouldUpdateVendorById() throws Exception {
         VendorDTO vendorDTO = new VendorDTO();
         vendorDTO.setId(1L);
-        vendorDTO.setName("Some name");
+        vendorDTO.setText("Some text");
         vendorDTO.setVendorUrl(BASE_URL + "/1");
-        throw new RuntimeException("Not implemented yet");
+
+        when(vendorService.updateVendor(anyLong(),any(VendorDTO.class))).thenReturn(vendorDTO);
+
+        mockMvc.perform(patch(BASE_URL+"/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.vendorUrl",equalTo(BASE_URL + "/1")));
+
     }
 }
