@@ -16,38 +16,38 @@ public class VendorController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public VendorListDTO showVendorList(){
-       return new VendorListDTO(vendorService.getAllVendors());
+    public VendorListDTO showVendorList() {
+        return new VendorListDTO(vendorService.getAllVendors());
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public VendorDTO getVendorById(@PathVariable String id){
+    public VendorDTO getVendorById(@PathVariable String id) {
         return vendorService.getVendorById(new Long(id));
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void removeVendorById(@PathVariable String id){
+    public void removeVendorById(@PathVariable String id) {
         vendorService.deleteVendorById(new Long(id));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public VendorDTO createNewVendor(@RequestBody VendorDTO vendorDTO){
+    public VendorDTO createNewVendor(@RequestBody VendorDTO vendorDTO) {
         return vendorService.createNewVendor(vendorDTO);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public VendorDTO replaceVendorById(@PathVariable String id,@RequestBody VendorDTO vendorDTO){
+    public VendorDTO replaceVendorById(@PathVariable String id, @RequestBody VendorDTO vendorDTO) {
         return vendorService.replaceVendor(new Long(id), vendorDTO);
     }
 
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public VendorDTO updateVendorById(@PathVariable String id,@RequestBody VendorDTO vendorDTO){
+    public VendorDTO updateVendorById(@PathVariable String id, @RequestBody VendorDTO vendorDTO) {
         return vendorService.updateVendor(new Long(id), vendorDTO);
     }
 

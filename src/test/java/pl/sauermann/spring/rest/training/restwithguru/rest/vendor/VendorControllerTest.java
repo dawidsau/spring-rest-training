@@ -9,6 +9,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import pl.sauermann.spring.rest.training.restwithguru.rest.AbstractRestControllerTest;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
@@ -74,9 +75,10 @@ public class VendorControllerTest {
         when(vendorService.createNewVendor(any(VendorDTO.class))).thenReturn(vendorDTO);
 
         mockMvc.perform(post(BASE_URL)
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(AbstractRestControllerTest.asJsonString(vendorDTO)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.vendorUrl",equalTo(BASE_URL + "/1")));
+                .andExpect(jsonPath("$.vendorUrl", equalTo(BASE_URL + "/1")));
 
 
     }
@@ -108,12 +110,13 @@ public class VendorControllerTest {
         vendorDTO.setText("Some text");
         vendorDTO.setVendorUrl(BASE_URL + "/1");
 
-        when(vendorService.replaceVendor(anyLong(),any(VendorDTO.class))).thenReturn(vendorDTO);
+        when(vendorService.replaceVendor(anyLong(), any(VendorDTO.class))).thenReturn(vendorDTO);
 
-        mockMvc.perform(put(BASE_URL+"/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(put(BASE_URL + "/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(AbstractRestControllerTest.asJsonString(vendorDTO)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.vendorUrl",equalTo(BASE_URL + "/1")));
+                .andExpect(jsonPath("$.vendorUrl", equalTo(BASE_URL + "/1")));
 
     }
 
@@ -124,12 +127,13 @@ public class VendorControllerTest {
         vendorDTO.setText("Some text");
         vendorDTO.setVendorUrl(BASE_URL + "/1");
 
-        when(vendorService.updateVendor(anyLong(),any(VendorDTO.class))).thenReturn(vendorDTO);
+        when(vendorService.updateVendor(anyLong(), any(VendorDTO.class))).thenReturn(vendorDTO);
 
-        mockMvc.perform(patch(BASE_URL+"/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(patch(BASE_URL + "/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(AbstractRestControllerTest.asJsonString(vendorDTO)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.vendorUrl",equalTo(BASE_URL + "/1")));
+                .andExpect(jsonPath("$.vendorUrl", equalTo(BASE_URL + "/1")));
 
     }
 }
